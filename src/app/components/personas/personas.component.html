@@ -1,0 +1,34 @@
+<h1>Countries</h1>
+
+<p>Listado de personas:</p>
+
+<p *ngIf="!personas"><em>Loading...</em></p>
+
+
+<table mat-table [dataSource]="personas" class="table-striped mat-elevation-z8" [hidden]="!personas"
+    matSort (matSortChange)="loadData()"
+    matSortActive="{{defaultSortColumn}}" matSortDirection="{{defaultSortOrder}}">
+
+  <!-- Id Column -->
+  <ng-container matColumnDef="id_documento">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+    <td mat-cell *matCellDef="let persona"> {{persona.id_documento}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+    <td mat-cell *matCellDef="let persona"> {{persona.nombre}} </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+﻿
+<!-- Pagination directive -->
+<mat-paginator [hidden]="!personas"
+    (page)="getData()"
+    [pageSize]="10"
+    [pageSizeOptions]="[10, 20, 50]"
+    showFirstLastButtons></mat-paginator>
